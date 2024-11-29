@@ -13,3 +13,11 @@ export const userSchema = Joi.object({
       "string.max": "O campo 'password' precisa ter no máximo 18 caracteres"
     })
   });
+
+  export const idSchema = Joi.object({
+      id: Joi.string().min(24).max(24).required().messages({
+        "string.empty": "Id é obrigatório.",
+        "string.min": "O id deve ter 24 caracteres.",
+        "string.max": "O id deve ter 24 caracteres."
+      })
+    });

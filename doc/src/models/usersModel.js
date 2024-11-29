@@ -48,6 +48,8 @@ export async function updateUserPassword(userId,passwordBodyRequest){
 export async function deleteUserById(userId){
     const db = conexao.db("project_pictures_node");
     const users = db.collection("users");
+    const password = db.collection("passwords");
     const objId = new ObjectId(ObjectId.createFromHexString(userId));
+    password.deleteOne({userId: objId});
     return users.deleteOne({_id: objId});
 }

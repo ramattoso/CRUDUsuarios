@@ -25,3 +25,10 @@ export const userSchema = Joi.object({
         "string.max": "O id deve ter 24 caracteres."
       })
     });
+    export const NicknameSchema = Joi.object({
+      nickname: Joi.string().min(4).required().messages({
+        "any.required": "O campo 'nickname' é obrigatório.",
+        "string.empty": "O campo 'nickname' não pode estar vazio.",
+        "string.min": "O campo 'nickname' precisa ter mais do que 4 caracteres."
+      }),
+    });

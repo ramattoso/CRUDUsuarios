@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { getAllUsers, addNewUser, addUserPassword, updateUserById, updateUserPassword, getUserById, deleteUserById } from "../models/usersModel.js";
+import { getAllUsers, addNewUser, addUserPassword, updateUserById, updateUserPassword, getUserByNickname, deleteUserById } from "../models/usersModel.js";
 
 export async function getUsers(req, res){
     const users = await getAllUsers();
@@ -7,7 +7,7 @@ export async function getUsers(req, res){
 }
 
 export async function getUser(req, res){
-    const user = await getUserById(req.params.id);
+    const user = await getUserByNickname(req.params.nickname);
     res.status(200).json(user);
 }
 

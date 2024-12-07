@@ -16,6 +16,10 @@ export async function getUserById(userId){
     return await users.findOne({_id: objId});
 }
 
+export async function getUserByNickname(nickname){
+    return await users.findOne({nickname: nickname});
+}
+
 export async function addNewUser(nameBodyRequest){
     const userId = await users.insertOne(nameBodyRequest);
     return { id:userId.insertedId};

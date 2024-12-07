@@ -27,9 +27,9 @@ export const validateBody = (schema) => (req, res, next) => {
 export const isUnique = () => (req, res, next) =>{
   try {
     const result = users.findOne({nickname: req.nickname});
-    if (result != null) {
+    if (!result) {
       return res.status(400).json({
-        status: 'Error',
+        status: 'Erro',
         message: 'Erro de validação',
         details: 'Nickname já em uso.',
       });

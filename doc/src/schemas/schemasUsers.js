@@ -6,6 +6,11 @@ export const userSchema = Joi.object({
       "string.empty": "O campo 'name' não pode estar vazio.",
       "string.min": "O campo 'name' precisa ter mais do que 4 caracteres."
     }),
+    nickname: Joi.string().min(4).required().messages({
+      "any.required": "O campo 'nickname' é obrigatório.",
+      "string.empty": "O campo 'nickname' não pode estar vazio.",
+      "string.min": "O campo 'nickname' precisa ter mais do que 4 caracteres."
+    }),
     password: Joi.string().min(6).max(18).required().messages({
       "any.required": "O campo 'password' é obrigatório.",
       "string.empty": "O campo 'password' não pode estar vazio",
@@ -13,7 +18,6 @@ export const userSchema = Joi.object({
       "string.max": "O campo 'password' precisa ter no máximo 18 caracteres"
     })
   });
-
   export const idSchema = Joi.object({
       id: Joi.string().min(24).max(24).required().messages({
         "string.empty": "Id é obrigatório.",

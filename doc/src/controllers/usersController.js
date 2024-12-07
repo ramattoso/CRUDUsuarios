@@ -14,11 +14,12 @@ export async function getUser(req, res){
 export async function addUser(req, res){
     const nameBodyRequest = {
         name: req.body.name,
+        nickname: req.body.nickname
     }
     const user = await addNewUser(nameBodyRequest);
     const passwordBodyRequest = {
         userId: user.id,
-        password: req.body.password,
+        password: req.body.password
     }
     await addUserPassword(passwordBodyRequest);
     res.status(201).json(user);

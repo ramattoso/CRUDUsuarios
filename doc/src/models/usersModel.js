@@ -35,8 +35,14 @@ export async function updateUserById(userId,nameBodyRequest){
     return { id: userId};
 }
 
-export async function updateUserPassword(userId,passwordBodyRequest){
-    const objId = ObjectId.createFromHexString(userId);
+export async function updateUserByNickname(nameBodyRequest){
+    const result = await users.findOne({nickname: nameBodyRequest.nickname});
+    users.updateOne({_id: new ObjectId(result._id)}, {$set:nameBodyRequest});
+    return { id: result._id};
+}
+
+export async function updateUserPassword(passwordBodyRequest){
+    const objId = passwordBodyRequest.userId;
     await password.updateOne({userId: new ObjectId(objId)}, {$set:passwordBodyRequest});
 }
 
@@ -44,4 +50,10 @@ export async function deleteUserById(userId){
     const objId = new ObjectId(ObjectId.createFromHexString(userId));
     password.deleteOne({userId: objId});
     return await users.deleteOne({_id: objId});
+}
+
+export async function deleteUserByNickname(nickname){
+    const result = await users.findOne({nickname: nickname});
+    password.deleteOne({userId: result._id});
+    return await users.deleteOne({_id: result._id});
 }

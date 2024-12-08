@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import { getAllUsers, addNewUser, addUserPassword, updateUserById, updateUserPassword, getUserByNickname, deleteUserById } from "../models/usersModel.js";
+import { getAllUsers, addNewUser, addUserPassword, updateUserById, updateUserPassword, getUserByNickname, deleteUserById, updateUserByNickname, deleteUserByNickname } from "../models/usersModel.js";
 
 export async function getUsers(req, res){
     const users = await getAllUsers();
@@ -8,7 +8,9 @@ export async function getUsers(req, res){
 
 export async function getUser(req, res){
     const user = await getUserByNickname(req.params.nickname);
-    res.status(200).json(user);
+    if (user === null) {
+        res.status(404).json('User not found');
+    } else { res.status(200).json(user);}
 }
 
 export async function addUser(req, res){
@@ -26,21 +28,21 @@ export async function addUser(req, res){
 }
 
 export async function updateUser(req, res){
-    const userId = req.params.id;
     const nameBodyRequest = {
         name: req.body.name,
+        nickname: req.body.nickname
     }
-    const user = await updateUserById(userId,nameBodyRequest);
-    const objectId = ObjectId.createFromHexString(userId);
+    const user = await updateUserByNickname(nameBodyRequest);
+    const objectId = user.id;
     const passwordBodyRequest = {
         userId: new ObjectId(objectId),
         password: req.body.password,
     }
-    await updateUserPassword(userId,passwordBodyRequest);
+    await updateUserPassword(passwordBodyRequest);
     res.status(200).json(user);
 }
 
 export async function deleteUser(req, res){
-    const user = await deleteUserById(req.params.id);
+    const user = await deleteUserByNickname(req.params.nickname);
     res.status(204).json();
 }

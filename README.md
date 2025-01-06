@@ -38,3 +38,10 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 1. Clone o repositório:
    ```bash
    git clone https://github.com/ramattoso/CRUDUsuarios.git
+
+
+### Próximos passos
+1. Melhorar validações
+2. Fazer enum de erros
+3. Testes unitários
+4. Trocar o banco de dados

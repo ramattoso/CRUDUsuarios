@@ -11,7 +11,8 @@ const __dirname = path.dirname(__filename);
 
 // Configurações do banco de dados
 const pgp = pgPromise();
-const db = pgp("postgres://postgres:senha@localhost:5432/postgres");
+//const db = pgp("postgres://postgres:senha@localhost:5432/postgres");
+const db = pgp(`postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@localhost:5432/postgres`);
 
 const filePath = join(__dirname, 'dbConfig.sql');
 const query = new pgp.QueryFile(filePath);

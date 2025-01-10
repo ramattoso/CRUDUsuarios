@@ -22,7 +22,9 @@
     "email": "quel.mattoso@gmail.com",
     "url": ""
   },
-  "contributors": ["Raquel Mattoso"],
+  "contributors": [
+    "Raquel Mattoso"
+  ],
   "scripts": {
     "dev": "node --watch --env-file=.env server.js",
     "test": "jest"

@@ -7,11 +7,11 @@ import { userSchema, uuidSchema } from "../schemas/schemasUsers.js";
 
 const routes = (app) => {
     app.use(express.json());
-    app.get('/users', validateBody(userSchema), getUsers);
-    app.get('/user/:id', getUser);
-    app.post('/user', addUser);
+    app.get('/users', getUsers);
+    app.get('/user/:id', validateParams(uuidSchema), getUser);
+    app.post('/user', validateBody(userSchema), addUser);
     app.put('/user/:id', validateParams(uuidSchema), updateUser);
-    app.delete('/user/:id', deleteUser);
+    app.delete('/user/:id', validateParams(uuidSchema), deleteUser);
 }
 
 export default routes;

@@ -1,17 +1,20 @@
-import { MongoClient } from 'mongodb';
+import pgPromise from 'pg-promise';
+import {join} from 'node:path';
+import { fileURLToPath } from 'url';
+import path from 'path'
+import 'dotenv/config';
 
-export default async function conectarAoBanco(stringConexao) {
-  let mongoClient;
+// Define __dirname para ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-  try {
-      mongoClient = new MongoClient(stringConexao);
-      console.log('Conectando ao cluster do banco de dados...');
-      await mongoClient.connect();
-      console.log('Conectado ao MongoDB Atlas com sucesso!');
 
-      return mongoClient;
-  } catch (erro) {
-      console.error('Falha na conexão com o banco!', erro);
-      process.exit();
-  }
-}
+// Configurações do banco de dados
+const pgp = pgPromise();
+const db = pgp("postgres://postgres:senha@localhost:5432/postgres");
+
+const filePath = join(__dirname, 'dbConfig.sql');
+const query = new pgp.QueryFile(filePath);
+db.query(query);
+
+export default db;

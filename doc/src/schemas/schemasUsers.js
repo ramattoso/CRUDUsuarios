@@ -18,17 +18,18 @@ export const userSchema = Joi.object({
       "string.max": "O campo 'password' precisa ter no máximo 18 caracteres"
     })
   });
-  export const idSchema = Joi.object({
-      id: Joi.string().min(24).max(24).required().messages({
-        "string.empty": "Id é obrigatório.",
-        "string.min": "O id deve ter 24 caracteres.",
-        "string.max": "O id deve ter 24 caracteres."
-      })
-    });
-    export const NicknameSchema = Joi.object({
-      nickname: Joi.string().min(4).required().messages({
-        "any.required": "O campo 'nickname' é obrigatório.",
-        "string.empty": "O campo 'nickname' não pode estar vazio.",
-        "string.min": "O campo 'nickname' precisa ter mais do que 4 caracteres."
-      }),
-    });
+
+export const uuidSchema = Joi.object({
+  id: Joi.string().guid({version: ['uuidv5']}).required().messages({
+      "string.guid": "O 'id' deve ser um UUID válido.",
+      "any.required": "Id é obrigatório."
+  })
+});
+
+export const NicknameSchema = Joi.object({
+  nickname: Joi.string().min(4).required().messages({
+    "any.required": "O campo 'nickname' é obrigatório.",
+    "string.empty": "O campo 'nickname' não pode estar vazio.",
+    "string.min": "O campo 'nickname' precisa ter mais do que 4 caracteres."
+  }),
+});

@@ -1,4 +1,4 @@
-import { getUserByNickname, users } from '../models/usersModel.js'
+/*import { getUserByNickname, users } from '../models/usersModel.js'
 
 export const validateParams = (schema) => (req, res, next) => {
     const { error } = schema.validate(req.params, { abortEarly: false });
@@ -58,4 +58,4 @@ export const existsNickname = () => async (req, res, next) =>{
     });
   }
   next();
-}
+}*/

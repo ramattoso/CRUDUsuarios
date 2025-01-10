@@ -1,59 +1,40 @@
 import 'dotenv/config';
-import { ObjectId } from 'mongodb';
-import conectarAoBanco from '../config/dbConfig.js';
+import db from '../config/dbConfig.js';
+import pgPromise from 'pg-promise';
 
-const conexao = await conectarAoBanco(process.env.STRING_CONEXAO);
-const db = conexao.db("project_pictures_node");
-export const users = db.collection("users");
-const password = db.collection("passwords");
+const pgp = pgPromise();
+
+export async function addNewUser(userBodyRequest){
+    return await db.tx(async (t) => {
+        const client = await t.one("INSERT INTO client_service.client (id, name, created_at, updated_at) VALUES (gen_random_uuid(), $1, NOW(), NOW()) RETURNING id",
+        [userBodyRequest.name]);
+
+        await t.one("INSERT INTO client_service.client_password (id, password_value, client_id, created_at, updated_at) VALUES (gen_random_uuid(), $1, $2, NOW(), NOW()) RETURNING client_id", [userBodyRequest.password, client.id]);
+        
+        return client;
+    });
+}
 
 export async function getAllUsers(){
-    return await users.find().toArray();
+    return await db.any("SELECT * FROM client_service.client");
 }
 
 export async function getUserById(userId){
-    const objId = new ObjectId(ObjectId.createFromHexString(userId));
-    return await users.findOne({_id: objId});
+    return await db.one("SELECT * FROM client_service.client WHERE id = $1", userId)
 }
 
-export async function getUserByNickname(nickname){
-    return await users.findOne({nickname: nickname});
-}
+export async function updateUserById(userId, userBodyRequest){
+    return await db.tx(async (t) => {
+        const client = await t.one("UPDATE client_service.client SET name = $1, updated_at = NOW() WHERE id = $2 RETURNING id",
+        [userBodyRequest.name, userId]);
 
-export async function addNewUser(nameBodyRequest){
-    const userId = await users.insertOne(nameBodyRequest);
-    return { id:userId.insertedId};
-}
-
-export async function addUserPassword(passwordBodyRequest){
-    await password.insertOne(passwordBodyRequest);
-}
-
-export async function updateUserById(userId,nameBodyRequest){
-    const objId = ObjectId.createFromHexString(userId);
-    await users.updateOne({_id: new ObjectId(objId)}, {$set:nameBodyRequest});
-    return { id: userId};
-}
-
-export async function updateUserByNickname(nameBodyRequest){
-    const result = await users.findOne({nickname: nameBodyRequest.nickname});
-    users.updateOne({_id: new ObjectId(result._id)}, {$set:nameBodyRequest});
-    return { id: result._id};
-}
-
-export async function updateUserPassword(passwordBodyRequest){
-    const objId = passwordBodyRequest.userId;
-    await password.updateOne({userId: new ObjectId(objId)}, {$set:passwordBodyRequest});
+        await t.one("UPDATE client_service.client_password SET password_value = $1, updated_at = NOW() WHERE client_id = $2 RETURNING client_id", [userBodyRequest.password, userId]);
+        
+        return client;
+    });
 }
 
 export async function deleteUserById(userId){
-    const objId = new ObjectId(ObjectId.createFromHexString(userId));
-    password.deleteOne({userId: objId});
-    return await users.deleteOne({_id: objId});
-}
-
-export async function deleteUserByNickname(nickname){
-    const result = await users.findOne({nickname: nickname});
-    password.deleteOne({userId: result._id});
-    return await users.deleteOne({_id: result._id});
+    await db.one("DELETE FROM client_service.client WHERE id = $1 RETURNING 1", userId)
+    return userId
 }

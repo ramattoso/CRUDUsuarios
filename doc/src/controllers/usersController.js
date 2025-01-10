@@ -1,5 +1,22 @@
-import { ObjectId } from 'mongodb';
-import { getAllUsers, addNewUser, addUserPassword, updateUserById, updateUserPassword, getUserByNickname, deleteUserById, updateUserByNickname, deleteUserByNickname } from "../models/usersModel.js";
+import { addNewUser, getAllUsers, getUserById, updateUserById, deleteUserById} from "../models/usersModel.js";
+
+export async function addUser(req, res){
+    try {
+        const userBodyRequest = {
+            name: req.body.name,
+            nickname: req.body.nickname,
+            password: req.body.password
+        }
+        const user = await addNewUser(userBodyRequest);
+        res.status(201).json(user);
+    } catch (error) {
+        res.status(400).json({
+            status: "Error",
+            message: "Falha ao criar usuário",
+            details: error.message
+        });
+    }   
+}
 
 export async function getUsers(req, res){
     const users = await getAllUsers();
@@ -7,42 +24,41 @@ export async function getUsers(req, res){
 }
 
 export async function getUser(req, res){
-    const user = await getUserByNickname(req.params.nickname);
-    if (user === null) {
-        res.status(404).json('User not found');
-    } else { res.status(200).json(user);}
-}
-
-export async function addUser(req, res){
-    const nameBodyRequest = {
-        name: req.body.name,
-        nickname: req.body.nickname
+    try{
+        const user = await getUserById(req.params.id);
+        res.status(200).json(user);
+    } catch(error) {
+        res.status(404).json({
+            status: "Error",
+            message: "Usuário não encontrado",
+            details: error.message
+        });
     }
-    const user = await addNewUser(nameBodyRequest);
-    const passwordBodyRequest = {
-        userId: user.id,
-        password: req.body.password
-    }
-    await addUserPassword(passwordBodyRequest);
-    res.status(201).json(user);
 }
 
 export async function updateUser(req, res){
-    const nameBodyRequest = {
-        name: req.body.name,
-        nickname: req.body.nickname
+    try{
+        const updateUserBodyRequest = {
+            name: req.body.name,
+            nickname: req.body.nickname,
+            password: req.body.password
+        }
+        const user = await updateUserById(req.params.id, updateUserBodyRequest);
+        res.status(200).json(user);
+    } catch(error){
+        res.status(404).json({
+            status: "Error",
+            message: "Usuário não encontrado",
+            details: error.message
+        });
     }
-    const user = await updateUserByNickname(nameBodyRequest);
-    const objectId = user.id;
-    const passwordBodyRequest = {
-        userId: new ObjectId(objectId),
-        password: req.body.password,
-    }
-    await updateUserPassword(passwordBodyRequest);
-    res.status(200).json(user);
 }
 
 export async function deleteUser(req, res){
-    const user = await deleteUserByNickname(req.params.nickname);
-    res.status(204).json();
+    try{
+        await deleteUserById(req.params.id);
+        res.status(204).json();
+    } catch (err) {
+        res.status(204).json();
+    }
 }

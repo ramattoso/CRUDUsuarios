@@ -18,21 +18,20 @@
   "bugs": "",
   "keywords": [],
   "author": {
-    "name": "",
-    "email": "",
+    "name": "Raquel Mattoso",
+    "email": "quel.mattoso@gmail.com",
     "url": ""
   },
-  "contributors": [],
+  "contributors": ["Raquel Mattoso"],
   "scripts": {
     "dev": "node --watch --env-file=.env server.js",
     "test": "jest"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "joi": "^17.13.3",
-    "mongodb": "^6.10.0",
-    "moongose": "^1.0.0"
+    "pg-promise": "^11.10.2"
   },
   "devDependencies": {
     "jest": "^29.7.0"

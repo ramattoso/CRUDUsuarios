@@ -20,10 +20,9 @@ export const userSchema = Joi.object({
   });
 
 export const uuidSchema = Joi.object({
-  id: Joi.string().guid({version: ['uuidv5']}).required().messages({
-      "string.guid": "O 'id' deve ser um UUID válido.",
-      "any.required": "Id é obrigatório."
-  })
+    id: Joi.string().guid({version: ['uuidv5']}).messages({
+        "string.guid": "O 'id' deve ser um UUID válido.",
+    })
 });
 
 export const NicknameSchema = Joi.object({

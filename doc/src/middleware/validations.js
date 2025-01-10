@@ -1,4 +1,4 @@
-/*import { getUserByNickname, users } from '../models/usersModel.js'
+//import { getUserByNickname, users } from '../models/usersModel.js'
 
 export const validateParams = (schema) => (req, res, next) => {
     const { error } = schema.validate(req.params, { abortEarly: false });
@@ -24,6 +24,7 @@ export const validateBody = (schema) => (req, res, next) => {
     next();
 };
 
+/*
 export const isUnique = () => async (req, res, next) =>{
   try {
     const result = await getUserByNickname(req.body.nickname);

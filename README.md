@@ -1,7 +1,7 @@
 # **CRUD de usuários**
 
 Neste repositório encontra-se um CRUD (create, read, update e delete) de usuários. Um usuário é formado pelo id, nome e senha. 
-É utilizado MongoDB, para saber sobre a estrutura de dados veja a doc: 
+É utilizado postgreSQL como banco de dados, para saber sobre a estrutura de dados veja a doc: 
 
 ## **Índice**
 

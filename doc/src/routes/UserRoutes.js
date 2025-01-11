@@ -1,6 +1,6 @@
 import express from "express";
 import { addUser, getUsers, getUser, updateUser, deleteUser} from "../controllers/UserController.js";
-import { validateParams, validateBody } from "../middleware/ErrorHandlers.js";
+import { validateParams, validateBody } from "../middleware/ErrorsHandler.js";
 import { userSchema, uuidSchema } from "../schemas/UserSchemas.js";
 
 // Rotas

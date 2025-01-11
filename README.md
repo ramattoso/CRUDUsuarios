@@ -27,9 +27,10 @@ Este é um projeto Node.js que cria, lê, atualiza e deleta usuários que tem um
 
 ### Regras de negócio
 
-- Nickname é único e deve ter no máximo 64 caracteres
-- Nome pode ter até 255 caracteres
-- Senha pode ter até 64 caracteres
+- Name, Password e Nickname são obrigatórios 
+- Nickname é único e deve ter entre 4 e 64 caracteres
+- Nome pode ter entre 4 e 255 caracteres
+- Senha pode ter entre 6 e 18 caracteres
 - id do usuário é criado automaticamente pelo serviço e é chave primária
 
 ---
@@ -75,7 +76,10 @@ Certifique-se de ter as seguintes ferramentas instaladas:
            └── schemasUsers.js 
    ```
 
+### Utilizando a API
+
+1. Na pasta doc dê o comando `npm run dev`
+2. Para fazer as chamadas use a collection disponível em doc\CRUDUsers.postman_collection.
+
 ### Próximos passos
-1. Melhorar validações
-2. Fazer enum de erros
-3. Testes unitários
+1. Testes unitários

@@ -1,3 +1,4 @@
+import { validateErrorMessage } from "../middleware/ErrorsHandler.js";
 import { addNewUser, getAllUsers, getUserById, updateUserById, deleteUserById} from "../models/UserModel.js";
 
 export async function addUser(req, res){
@@ -10,10 +11,11 @@ export async function addUser(req, res){
         const user = await addNewUser(userBodyRequest);
         res.status(201).json(user);
     } catch (error) {
-        res.status(400).json({
-            status: "Error",
-            message: "Falha ao criar usuário",
-            details: error.message
+        const errorInfo = validateErrorMessage(error.message);
+        res.status(errorInfo.statusCode).json({
+            status: errorInfo.code,
+            message: errorInfo.errorMessage,
+            details: errorInfo.errorDetails
         });
     }   
 }
@@ -28,10 +30,11 @@ export async function getUser(req, res){
         const user = await getUserById(req.params.id);
         res.status(200).json(user);
     } catch(error) {
-        res.status(404).json({
-            status: "Error",
-            message: "Usuário não encontrado",
-            details: error.message
+        const errorInfo = validateErrorMessage(error.message);
+        res.status(errorInfo.statusCode).json({
+            status: errorInfo.code,
+            message: errorInfo.errorMessage,
+            details: errorInfo.errorDetails
         });
     }
 }
@@ -46,10 +49,11 @@ export async function updateUser(req, res){
         const user = await updateUserById(req.params.id, updateUserBodyRequest);
         res.status(200).json(user);
     } catch(error){
-        res.status(404).json({
-            status: "Error",
-            message: "Usuário não encontrado",
-            details: error.message
+        const errorInfo = validateErrorMessage(error.message);
+        res.status(errorInfo.statusCode).json({
+            status: errorInfo.code,
+            message: errorInfo.errorMessage,
+            details: errorInfo.errorDetails
         });
     }
 }

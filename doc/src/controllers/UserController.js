@@ -1,4 +1,4 @@
-import { addNewUser, getAllUsers, getUserById, updateUserById, deleteUserById} from "../models/usersModel.js";
+import { addNewUser, getAllUsers, getUserById, updateUserById, deleteUserById} from "../models/UserModel.js";
 
 export async function addUser(req, res){
     try {

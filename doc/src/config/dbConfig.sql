@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS client_service.client (
 
 CREATE TABLE IF NOT EXISTS client_service.client_password (
     id VARCHAR(36) PRIMARY KEY,
-    password_value TEXT NOT NULL,
+    password_value VARCHAR(64) NOT NULL,
     client_id VARCHAR(36) NOT NULL,
     created_at TIMESTAMP DEFAULT NOW(),
     updated_at TIMESTAMP DEFAULT NOW(),

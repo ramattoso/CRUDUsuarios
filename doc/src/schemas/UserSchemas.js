@@ -20,7 +20,7 @@ export const userSchema = Joi.object({
   });
 
 export const uuidSchema = Joi.object({
-    id: Joi.string().guid({version: ['uuidv5']}).messages({
+    id: Joi.string().guid({version: ['uuidv4', 'uuidv5']}).messages({
         "string.guid": "O 'id' deve ser um UUID válido.",
     })
 });

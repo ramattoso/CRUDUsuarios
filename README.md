@@ -8,9 +8,9 @@ Neste repositório encontra-se um CRUD (create, read, update e delete) de usuár
 - [Descrição](#descrição)
 - [Instalação](#instalação)
 - [Recursos](#recursos)
-- [Como Usar](#como-usar)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Licença](#licença)
+- [Regras de negócio](#regras-de-negócio)
+- [Como Usar](#utilizando-a-api)
+- [Próximos Passos](#próximos-passos)
 
 ---
 
@@ -65,15 +65,17 @@ Certifique-se de ter as seguintes ferramentas instaladas:
        │   └── dbConfig.js
        │   └── dbConfig.sql
        ├── controllers/
-       │   └── usersController.js
+       │   └── UserController.js
        ├── middleware/
-       │   └── validations.js
+       │   └── ErrorsHandler.js
        ├── models/
-       │   └── User.js
+       │   └── UserModel.js
        ├── routes/
-       │   └── usersRoutes.js
+       │   └── UserRoutes.js
        ├── schemas/
-           └── schemasUsers.js 
+       │   └── UserSchemas.js
+       ├── utils/
+           └── ErrorMessages.js 
    ```
 
 ### Utilizando a API

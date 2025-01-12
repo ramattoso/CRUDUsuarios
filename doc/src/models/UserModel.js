@@ -11,7 +11,7 @@ export async function addNewUser(userBodyRequest){
 
         await t.one("INSERT INTO client_service.client_password (id, password_value, client_id, created_at, updated_at) VALUES (gen_random_uuid(), $1, $2, NOW(), NOW()) RETURNING client_id", [userBodyRequest.password, client.id]);
         
-        return client;
+        return client.id;
     });
 }
 
@@ -30,7 +30,7 @@ export async function updateUserById(userId, userBodyRequest){
 
         await t.one("UPDATE client_service.client_password SET password_value = $1, updated_at = NOW() WHERE client_id = $2 RETURNING client_id", [userBodyRequest.password, userId]);
         
-        return client;
+        return client.id;
     });
 }
 

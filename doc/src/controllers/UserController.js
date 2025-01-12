@@ -8,8 +8,10 @@ export async function addUser(req, res){
             nickname: req.body.nickname,
             password: req.body.password
         }
-        const user = await addNewUser(userBodyRequest);
-        res.status(201).json(user);
+        const userId = await addNewUser(userBodyRequest);
+        res.status(201).json({
+            id: userId
+        });
     } catch (error) {
         const errorInfo = validateErrorMessage(error.message);
         res.status(errorInfo.statusCode).json({
@@ -46,8 +48,10 @@ export async function updateUser(req, res){
             nickname: req.body.nickname,
             password: req.body.password
         }
-        const user = await updateUserById(req.params.id, updateUserBodyRequest);
-        res.status(200).json(user);
+        const userId = await updateUserById(req.params.id, updateUserBodyRequest);
+        res.status(200).json({
+            id: userId
+        });
     } catch(error){
         const errorInfo = validateErrorMessage(error.message);
         res.status(errorInfo.statusCode).json({

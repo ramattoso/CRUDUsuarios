@@ -1,15 +1,14 @@
 import { validateErrorMessage } from "../middleware/ErrorsHandler.js";
-import { addNewUser, getAllUsers, getUserById, updateUserById, deleteUserById} from "../models/UserModel.js";
+import { getAllUsers, getUserById, deleteUserById} from "../models/UserModel.js";
+import User from "../models/User.js"
 
 export async function addUser(req, res){
     try {
-        const userBodyRequest = {
-            name: req.body.name,
-            nickname: req.body.nickname,
-            password: req.body.password
-        }
-        const user = await addNewUser(userBodyRequest);
-        res.status(201).json(user);
+        const user = new User(req.body.name, req.body.nickname, req.body.password)
+        const userId = await user.newUser();
+        res.status(201).json({
+            id: userId
+        });
     } catch (error) {
         const errorInfo = validateErrorMessage(error.message);
         res.status(errorInfo.statusCode).json({
@@ -41,13 +40,11 @@ export async function getUser(req, res){
 
 export async function updateUser(req, res){
     try{
-        const updateUserBodyRequest = {
-            name: req.body.name,
-            nickname: req.body.nickname,
-            password: req.body.password
-        }
-        const user = await updateUserById(req.params.id, updateUserBodyRequest);
-        res.status(200).json(user);
+        const user = new User(req.body.name, req.body.nickname, req.body.password);
+        const userId = await user.updateUser(req.params.id)
+        res.status(200).json({
+            id: userId
+        });
     } catch(error){
         const errorInfo = validateErrorMessage(error.message);
         res.status(errorInfo.statusCode).json({

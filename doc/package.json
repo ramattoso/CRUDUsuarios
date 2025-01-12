@@ -33,7 +33,8 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.1",
     "joi": "^17.13.3",
-    "pg-promise": "^11.10.2"
+    "pg-promise": "^11.10.2",
+    "uuid": "^11.0.5"
   },
   "devDependencies": {
     "jest": "^29.7.0"

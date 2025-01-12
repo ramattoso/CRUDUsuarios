@@ -11,3 +11,10 @@ export const NOT_FOUND = {
     errorMessage: "Dados não encontrados",
     errorDetails: "Usuário não existe."
   };
+
+export const INTERNAL_ERROR = {
+  statusCode: 500,
+  code: 100,
+  errorMessage: "Operação não realizada",
+  errorDetails: "Erro não mapeado. Tente mais tarde."
+}

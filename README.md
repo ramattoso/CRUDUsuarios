@@ -58,7 +58,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 ### Estrutura de pastas:
    ```bash
    doc/
-   ├── app.js
+   ├── server.js
    ├── tests
    ├── src/         
        └── config/
@@ -68,12 +68,10 @@ Certifique-se de ter as seguintes ferramentas instaladas:
        │   └── UserController.js
        ├── middleware/
        │   └── ErrorsHandler.js
-       ├── models/
+       ├── repositories/
        │   └── UserModel.js
        ├── routes/
        │   └── UserRoutes.js
-       ├── schemas/
-       │   └── UserSchemas.js
        ├── utils/
            └── ErrorMessages.js 
    ```

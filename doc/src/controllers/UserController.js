@@ -1,5 +1,5 @@
 import { validateErrorMessage } from "../middleware/ErrorsHandler.js";
-import { addNewUser, getAllUsers, getUserById, updateUserById, deleteUserById} from "../models/UserModel.js";
+import { addNewUser, getAllUsers, getUserById, updateUserById, deleteUserById} from "../repositories/User.js";
 
 export async function addUser(req, res){
     try {

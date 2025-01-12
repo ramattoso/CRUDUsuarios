@@ -16,6 +16,14 @@ export class UserRepository {
         return client.id;
     }
 
+    async getAllUsers(){
+        return await db.any("SELECT * FROM client_service.client");
+    }
+
+    async getUserById(userId){
+        return await db.one("SELECT * FROM client_service.client WHERE id = $1", userId)
+    }
+
     async updateUser(User, userId) {
         let client;
         await db.tx(async (t) => {
@@ -25,5 +33,9 @@ export class UserRepository {
             await t.one("UPDATE client_service.client_password SET password_value = $1, updated_at = NOW() WHERE client_id = $2 RETURNING client_id", [User.password, userId]);
         });
         return client.id;
+    }
+
+    async deleteUserById(userId) {
+        return await db.one("DELETE FROM client_service.client WHERE id = $1 RETURNING 1", userId)
     }
 }

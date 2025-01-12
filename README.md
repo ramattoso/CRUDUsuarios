@@ -1,7 +1,7 @@
 # **CRUD de usuários**
 
 Neste repositório encontra-se um CRUD (create, read, update e delete) de usuários. Um usuário é formado pelo id, nome e senha. 
-É utilizado postgreSQL como banco de dados, para saber sobre a estrutura de dados veja a doc: 
+É utilizado postgreSQL como banco de dados e usuário criado como objeto. Para saber sobre a estrutura de dados veja a doc: 
 
 ## **Índice**
 
@@ -58,7 +58,7 @@ Certifique-se de ter as seguintes ferramentas instaladas:
 ### Estrutura de pastas:
    ```bash
    doc/
-   ├── app.js
+   ├── server.js
    ├── tests
    ├── src/         
        └── config/
@@ -68,12 +68,13 @@ Certifique-se de ter as seguintes ferramentas instaladas:
        │   └── UserController.js
        ├── middleware/
        │   └── ErrorsHandler.js
+       │   └── UserSchemas.js
        ├── models/
-       │   └── UserModel.js
+       │   └── User.js
+       ├── repositories/
+       │   └── UserRepository.js
        ├── routes/
        │   └── UserRoutes.js
-       ├── schemas/
-       │   └── UserSchemas.js
        ├── utils/
            └── ErrorMessages.js 
    ```

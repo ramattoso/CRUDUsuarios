@@ -1,4 +1,4 @@
-import { NICKNAME_ALREADY_EXISTS, NOT_FOUND} from "../utils/ErrorMessages.js";
+import { INTERNAL_ERROR, NICKNAME_ALREADY_EXISTS, NOT_FOUND} from "../utils/ErrorMessages.js";
 
 export const validateParams = (schema) => (req, res, next) => {
     const { error } = schema.validate(req.params, { abortEarly: false });
@@ -32,6 +32,9 @@ export function validateErrorMessage(errorMessage) {
 
         case "No data returned from the query.":
           return NOT_FOUND
+
+        default: 
+          return INTERNAL_ERROR
       }
     }
     const errorInfo = error(errorMessage);

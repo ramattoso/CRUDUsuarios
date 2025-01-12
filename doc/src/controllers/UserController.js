@@ -23,8 +23,17 @@ export async function addUser(req, res){
 }
 
 export async function getUsers(req, res){
-    const users = await getAllUsers();
-    res.status(200).json(users);
+    try{
+        const users = await getAllUsers();
+        res.status(200).json(users);
+    } catch (error){
+        const errorInfo = validateErrorMessage(error.message);
+        res.status(errorInfo.statusCode).json({
+            status: errorInfo.code,
+            message: errorInfo.errorMessage,
+            details: errorInfo.errorDetails
+        });
+    }
 }
 
 export async function getUser(req, res){

@@ -75,6 +75,8 @@ Certifique-se de ter as seguintes ferramentas instaladas:
        │   └── UserRepository.js
        ├── routes/
        │   └── UserRoutes.js
+       ├── service/
+       │   └── UserService.js
        ├── utils/
            └── ErrorMessages.js 
    ```
